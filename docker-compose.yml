@@ -1,0 +1,12 @@
+services:
+  database:
+    image: mysql:8.3.0
+    container_name: nest.js-study-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: database
+      TZ: "Asia/Tokyo"
+    ports:
+      - "3306:3306"
