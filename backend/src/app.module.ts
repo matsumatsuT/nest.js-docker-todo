@@ -4,10 +4,11 @@ import { AppService } from './app.service';
 import { TodoController } from './todo/todo.controller';
 import { TodoService } from './todo/todo.service';
 import { TodoModule } from './todo/todo.module';
-import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeormConfig } from 'typeorm.congi';
 
 @Module({
-  imports: [ConfigModule.forRoot(), TodoModule],
+  imports: [TypeOrmModule.forRoot(typeormConfig), TodoModule],
   controllers: [AppController, TodoController],
   providers: [AppService, TodoService],
 })
