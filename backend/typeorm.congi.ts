@@ -1,8 +1,8 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { config } from 'dotenv';
-import { join } from 'path';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm'
+import { config } from 'dotenv'
+import { join } from 'path'
 
-config({ path: '.env' });
+config({ path: '.env' })
 
 export const typeormConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -14,6 +14,4 @@ export const typeormConfig: TypeOrmModuleOptions = {
   entities: [join(__dirname, '../**/*.entity{.ts,.js}')],
   synchronize: true,
   logging: false,
-};
-
-const test2 = 'テスト';
+}
