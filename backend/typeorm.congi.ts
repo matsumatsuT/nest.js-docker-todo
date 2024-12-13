@@ -15,3 +15,5 @@ export const typeormConfig: TypeOrmModuleOptions = {
   synchronize: true,
   logging: false,
 };
+
+const test2 = 'テスト';
