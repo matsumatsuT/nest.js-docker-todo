@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
+import { dump } from 'js-yaml'
+import * as fs from 'fs'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -19,6 +21,13 @@ async function bootstrap() {
     .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
+
+  // フォルダが存在しない場合は作成
+  const outputDir = '../openApi'
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true })
+  }
+  fs.writeFileSync(`${outputDir}/swagger-spec.yaml`, dump(document, {}))
 
   await app.listen(process.env.PORT ?? 3000)
 }

@@ -1,0 +1,115 @@
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      operationId: AppController_getHello
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - App
+  /todo:
+    get:
+      operationId: TodoController_getTodos
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: &ref_0
+        - Todo
+    post:
+      operationId: TodoController_createTodo
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTodoDto'
+      responses:
+        '201':
+          description: ''
+      tags: *ref_0
+  /todo/{id}:
+    put:
+      operationId: TodoController_doneTodo
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+    delete:
+      operationId: TodoController_deleteTodo
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+  /user:
+    get:
+      operationId: UserController_getUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: &ref_1
+        - User
+    post:
+      operationId: UserController_createUser
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDto'
+      responses:
+        '201':
+          description: ''
+      tags: *ref_1
+info:
+  title: Todo API
+  description: Todo API Documentation
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    CreateTodoDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+          example: 説明はオプショナルです
+        userId:
+          type: number
+      required:
+        - title
+        - userId
+    CreateUserDto:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+      required:
+        - email
+        - password
+        - name
