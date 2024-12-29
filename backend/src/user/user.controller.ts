@@ -9,7 +9,7 @@ export class UserController {
 
   @Get()
   async getUsers(): Promise<User[]> {
-    return this.userService.users({})
+    return this.userService.users()
   }
 
   @Post()
