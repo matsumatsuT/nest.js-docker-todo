@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma, Todo } from '@prisma/client'
 import { PrismaService } from 'src/prisma/prisma.service'
+import { CreateTodoDto, DeleteTodoDto, UpdateTodoDto } from './dto/todo.dto'
 
 @Injectable()
 export class TodoService {
@@ -14,16 +15,16 @@ export class TodoService {
     })
   }
 
-  async createTodo(data: Prisma.TodoCreateInput): Promise<Todo> {
+  async createTodo(data: CreateTodoDto): Promise<Todo> {
     return this.prisma.todo.create({
       data,
     })
   }
 
-  async doneTodo(data: { where: Prisma.TodoWhereUniqueInput }): Promise<Todo> {
+  async doneTodo(data: UpdateTodoDto): Promise<Todo> {
     return this.prisma.todo.update({
       where: {
-        id: Number(data.where.id),
+        id: Number(data.id),
       },
       data: {
         done: true,
@@ -31,7 +32,7 @@ export class TodoService {
     })
   }
 
-  async deleteTodo(where: Prisma.TodoWhereUniqueInput): Promise<Todo> {
+  async deleteTodo(where: DeleteTodoDto): Promise<Todo> {
     return this.prisma.todo.delete({
       where: {
         id: Number(where.id),
