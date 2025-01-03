@@ -63,6 +63,12 @@ paths:
       responses:
         '200':
           description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResponseDto'
       tags: &ref_1
         - User
     post:
@@ -100,6 +106,22 @@ components:
       required:
         - title
         - userId
+    UserResponseDto:
+      type: object
+      properties:
+        id:
+          type: number
+          readOnly: true
+        email:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+      required:
+        - id
+        - email
+        - name
     CreateUserDto:
       type: object
       properties:
