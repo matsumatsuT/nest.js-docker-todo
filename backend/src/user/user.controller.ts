@@ -1,29 +1,45 @@
-import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common'
 import { UserService } from './user.service'
-import { User } from '@prisma/client'
-import { CreateUserDto, UserGetResponseDto } from './dto/user.dto'
-import { ApiOkResponse, ApiResponse } from '@nestjs/swagger'
+import { CreateUserDto, UpdateUserDto } from './dto/user.dto'
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { UserEntity } from 'src/entities/user.entity'
+import { ExcludePasswordInterceptor } from 'src/interceptor/transform.interceptor'
 
 @Controller('user')
+@UseInterceptors(ExcludePasswordInterceptor)
+@ApiTags('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
   @ApiOkResponse({
-    type: UserGetResponseDto,
+    type: UserEntity,
     isArray: true,
     description: 'ユーザーの取得',
   })
-  async getUsers(): Promise<User[]> {
+  async getUsers() {
     return this.userService.users()
   }
 
   @Post()
-  @ApiResponse({
-    status: HttpStatus.CREATED,
+  @ApiCreatedResponse({
+    type: UserEntity,
     description: 'ユーザーの新規作成',
   })
-  async createUser(@Body() data: CreateUserDto): Promise<User> {
+  async createUser(@Body() data: CreateUserDto) {
     return this.userService.createUser(data)
+  }
+
+  @Patch(':id')
+  async updateUser(@Param('id') id: string, @Body() data: UpdateUserDto) {
+    return this.userService.updateUser({ where: { id: Number(id) }, data })
   }
 }
