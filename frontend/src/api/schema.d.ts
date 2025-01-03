@@ -78,6 +78,11 @@ export interface components {
             description?: string;
             userId: number;
         };
+        UserResponseDto: {
+            readonly id: number;
+            readonly email: string;
+            readonly name: string;
+        };
         CreateUserDto: {
             email: string;
             password: string;
@@ -198,7 +203,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["UserResponseDto"][];
+                };
             };
         };
     };
