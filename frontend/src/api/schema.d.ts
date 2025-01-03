@@ -68,6 +68,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/user/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["UserController_updateUser"];
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -78,15 +94,21 @@ export interface components {
             description?: string;
             userId: number;
         };
-        UserResponseDto: {
-            readonly id: number;
-            readonly email: string;
-            readonly name: string;
+        UserEntity: {
+            id: number;
+            email: string;
+            name: string;
+            /** Format: date-time */
+            createdAt: string;
         };
         CreateUserDto: {
+            name: string;
             email: string;
             password: string;
+        };
+        UpdateUserDto: {
             name: string;
+            email: string;
         };
     };
     responses: never;
@@ -199,12 +221,13 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
+            /** @description ユーザーの取得 */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserResponseDto"][];
+                    "application/json": components["schemas"]["UserEntity"][];
                 };
             };
         };
@@ -222,7 +245,33 @@ export interface operations {
             };
         };
         responses: {
+            /** @description ユーザーの新規作成 */
             201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserEntity"];
+                };
+            };
+        };
+    };
+    UserController_updateUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateUserDto"];
+            };
+        };
+        responses: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
