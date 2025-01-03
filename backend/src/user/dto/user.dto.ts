@@ -16,7 +16,7 @@ export class CreateUserDto {
   name: string
 }
 
-export class UserResponseDto {
+export class UserGetResponseDto {
   @ApiResponseProperty()
   id: number
 
