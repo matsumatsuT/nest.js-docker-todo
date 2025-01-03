@@ -62,15 +62,15 @@ paths:
       parameters: []
       responses:
         '200':
-          description: ''
+          description: ユーザーの取得
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserResponseDto'
+                  $ref: '#/components/schemas/UserEntity'
       tags: &ref_1
-        - User
+        - user
     post:
       operationId: UserController_createUser
       parameters: []
@@ -82,6 +82,29 @@ paths:
               $ref: '#/components/schemas/CreateUserDto'
       responses:
         '201':
+          description: ユーザーの新規作成
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEntity'
+      tags: *ref_1
+  /user/{id}:
+    patch:
+      operationId: UserController_updateUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDto'
+      responses:
+        '200':
           description: ''
       tags: *ref_1
 info:
@@ -106,32 +129,43 @@ components:
       required:
         - title
         - userId
-    UserResponseDto:
+    UserEntity:
       type: object
       properties:
         id:
           type: number
-          readOnly: true
         email:
           type: string
-          readOnly: true
         name:
           type: string
-          readOnly: true
+        createdAt:
+          format: date-time
+          type: string
       required:
         - id
         - email
         - name
+        - createdAt
     CreateUserDto:
       type: object
       properties:
+        name:
+          type: string
         email:
           type: string
         password:
           type: string
-        name:
-          type: string
       required:
+        - name
         - email
         - password
+    UpdateUserDto:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+      required:
         - name
+        - email
