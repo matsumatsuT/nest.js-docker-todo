@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -39,7 +40,20 @@ export class UserController {
   }
 
   @Patch(':id')
+  @ApiOkResponse({
+    type: UserEntity,
+    description: 'ユーザーの更新',
+  })
   async updateUser(@Param('id') id: string, @Body() data: UpdateUserDto) {
     return this.userService.updateUser({ where: { id: Number(id) }, data })
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({
+    type: UserEntity,
+    description: 'ユーザーの削除',
+  })
+  async deleteUser(@Param('id') id: string) {
+    return this.userService.deleteUser({ id: Number(id) })
   }
 }

@@ -23,12 +23,12 @@ export class CreateUserDto {
 export class UpdateUserDto {
   @IsString()
   @IsOptional()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @MinLength(1)
   name: string
 
   @IsString()
   @IsOptional()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   email: string
 }

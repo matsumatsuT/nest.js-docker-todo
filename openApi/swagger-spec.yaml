@@ -105,7 +105,27 @@ paths:
               $ref: '#/components/schemas/UpdateUserDto'
       responses:
         '200':
-          description: ''
+          description: ユーザーの更新
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEntity'
+      tags: *ref_1
+    delete:
+      operationId: UserController_deleteUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ユーザーの削除
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEntity'
       tags: *ref_1
 info:
   title: Todo API
@@ -166,6 +186,3 @@ components:
           type: string
         email:
           type: string
-      required:
-        - name
-        - email
