@@ -1,28 +1,32 @@
-import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger'
-import { IsEmail, IsString, MinLength } from 'class-validator'
+import { ApiProperty } from '@nestjs/swagger'
+import { IsNotEmpty, IsString, MinLength } from 'class-validator'
 
 export class CreateUserDto {
+  @IsString()
+  @IsNotEmpty()
   @ApiProperty()
-  @IsEmail()
+  name: string
+
+  @IsString()
+  @IsNotEmpty({ message: '入力必須' })
+  @ApiProperty()
   email: string
 
-  @ApiProperty()
   @IsString()
+  @IsNotEmpty()
+  @MinLength(6)
+  @ApiProperty()
   password: string
-
-  @ApiProperty()
-  @IsString()
-  @MinLength(1)
-  name: string
 }
 
-export class UserGetResponseDto {
-  @ApiResponseProperty()
-  id: number
-
-  @ApiResponseProperty()
-  email: string
-
-  @ApiResponseProperty()
+export class UpdateUserDto {
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
   name: string
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  email: string
 }
