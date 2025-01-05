@@ -5,14 +5,28 @@ import { useFetchClient } from "@/hooks/useFetchClient";
 const User = () => {
   const $api = useFetchClient();
 
-  const { data, isLoading, error } = $api.useQuery("get", "/user");
+  const { data, refetch } = $api.useQuery("get", "/user");
+  const { mutate } = $api.useMutation("delete", "/user/{id}", {
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  const onDelete = (id: number) => {
+    mutate({ params: { path: { id: id.toString() } } });
+  };
 
   if (!data) return null;
 
   return (
     <div>
+      <p style={{ fontSize: "14px", fontWeight: "bold" }}>一覧</p>
       {data.map((user) => (
-        <div key={user.id}>{user.name}</div>
+        <div key={user.id} style={{ display: "flex", gap: "10px" }}>
+          <div>{user.id}</div>
+          <div>{user.email}</div>
+          <button onClick={() => onDelete(user.id)}>削除</button>
+        </div>
       ))}
     </div>
   );
