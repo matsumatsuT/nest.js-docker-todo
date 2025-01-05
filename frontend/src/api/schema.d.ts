@@ -78,7 +78,7 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        delete?: never;
+        delete: operations["UserController_deleteUser"];
         options?: never;
         head?: never;
         patch: operations["UserController_updateUser"];
@@ -107,8 +107,8 @@ export interface components {
             password: string;
         };
         UpdateUserDto: {
-            name: string;
-            email: string;
+            name?: string;
+            email?: string;
         };
     };
     responses: never;
@@ -256,6 +256,28 @@ export interface operations {
             };
         };
     };
+    UserController_deleteUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description ユーザーの削除 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserEntity"];
+                };
+            };
+        };
+    };
     UserController_updateUser: {
         parameters: {
             query?: never;
@@ -271,11 +293,14 @@ export interface operations {
             };
         };
         responses: {
+            /** @description ユーザーの更新 */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["UserEntity"];
+                };
             };
         };
     };
