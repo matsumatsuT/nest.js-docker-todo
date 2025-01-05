@@ -1,5 +1,3 @@
-import { ClientProvider } from "@/lib/clientProvider";
-
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -16,9 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <ClientProvider>
-        <body>{children}</body>
-      </ClientProvider>
+      <body>{children}</body>
     </html>
   );
 }

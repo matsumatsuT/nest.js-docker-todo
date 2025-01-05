@@ -1,9 +1,5 @@
-import createFetchClient from "openapi-fetch";
-import { paths } from "./schema";
-import createClient from "openapi-react-query";
+import createClient from "openapi-fetch";
+import type { paths } from "./schema";
 
-const fetchClient = createFetchClient<paths>({
-  baseUrl: "http://localhost:3308/",
-});
-
-export const $api = createClient(fetchClient);
+const client = createClient<paths>({ baseUrl: "http://localhost:3308/" });
+export default client;
