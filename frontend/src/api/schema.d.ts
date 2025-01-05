@@ -52,7 +52,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/user": {
+    "/users": {
         parameters: {
             query?: never;
             header?: never;
@@ -61,14 +61,15 @@ export interface paths {
         };
         get: operations["UserController_getUsers"];
         put?: never;
-        post: operations["UserController_createUser"];
+        /** ユーザーの新規作成 */
+        post: operations["createUser"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/user/{id}": {
+    "/users/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -78,10 +79,12 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        delete: operations["UserController_deleteUser"];
+        /** ユーザーの削除 */
+        delete: operations["deleteUser"];
         options?: never;
         head?: never;
-        patch: operations["UserController_updateUser"];
+        /** ユーザーの更新 */
+        patch: operations["updateUser"];
         trace?: never;
     };
 }
@@ -232,7 +235,7 @@ export interface operations {
             };
         };
     };
-    UserController_createUser: {
+    createUser: {
         parameters: {
             query?: never;
             header?: never;
@@ -256,7 +259,7 @@ export interface operations {
             };
         };
     };
-    UserController_deleteUser: {
+    deleteUser: {
         parameters: {
             query?: never;
             header?: never;
@@ -278,7 +281,7 @@ export interface operations {
             };
         };
     };
-    UserController_updateUser: {
+    updateUser: {
         parameters: {
             query?: never;
             header?: never;
