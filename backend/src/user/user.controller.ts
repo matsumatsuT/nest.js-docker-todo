@@ -10,13 +10,18 @@ import {
 } from '@nestjs/common'
 import { UserService } from './user.service'
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto'
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger'
 import { UserEntity } from 'src/entities/user.entity'
 import { ExcludePasswordInterceptor } from 'src/interceptor/transform.interceptor'
 
-@Controller('user')
+@Controller('users')
 @UseInterceptors(ExcludePasswordInterceptor)
-@ApiTags('user')
+@ApiTags('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -31,6 +36,7 @@ export class UserController {
   }
 
   @Post()
+  @ApiOperation({ summary: 'ユーザーの新規作成', operationId: 'createUser' })
   @ApiCreatedResponse({
     type: UserEntity,
     description: 'ユーザーの新規作成',
@@ -40,6 +46,7 @@ export class UserController {
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'ユーザーの更新', operationId: 'updateUser' })
   @ApiOkResponse({
     type: UserEntity,
     description: 'ユーザーの更新',
@@ -49,6 +56,7 @@ export class UserController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'ユーザーの削除', operationId: 'deleteUser' })
   @ApiOkResponse({
     type: UserEntity,
     description: 'ユーザーの削除',

@@ -56,7 +56,7 @@ paths:
         '200':
           description: ''
       tags: *ref_0
-  /user:
+  /users:
     get:
       operationId: UserController_getUsers
       parameters: []
@@ -70,9 +70,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/UserEntity'
       tags: &ref_1
-        - user
+        - users
     post:
-      operationId: UserController_createUser
+      operationId: createUser
       parameters: []
       requestBody:
         required: true
@@ -87,10 +87,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserEntity'
+      summary: ユーザーの新規作成
       tags: *ref_1
-  /user/{id}:
+  /users/{id}:
     patch:
-      operationId: UserController_updateUser
+      operationId: updateUser
       parameters:
         - name: id
           required: true
@@ -110,9 +111,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserEntity'
+      summary: ユーザーの更新
       tags: *ref_1
     delete:
-      operationId: UserController_deleteUser
+      operationId: deleteUser
       parameters:
         - name: id
           required: true
@@ -126,6 +128,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserEntity'
+      summary: ユーザーの削除
       tags: *ref_1
 info:
   title: Todo API
