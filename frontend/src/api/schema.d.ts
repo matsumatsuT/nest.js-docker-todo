@@ -61,6 +61,22 @@ export interface paths {
         };
         get: operations["UserController_getUsers"];
         put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
         /** ユーザーの新規作成 */
         post: operations["createUser"];
         delete?: never;
@@ -69,7 +85,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/users/{id}": {
+    "/users/update/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** ユーザーの更新 */
+        patch: operations["updateUser"];
+        trace?: never;
+    };
+    "/users/delete/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -83,8 +116,7 @@ export interface paths {
         delete: operations["deleteUser"];
         options?: never;
         head?: never;
-        /** ユーザーの更新 */
-        patch: operations["updateUser"];
+        patch?: never;
         trace?: never;
     };
 }
@@ -259,28 +291,6 @@ export interface operations {
             };
         };
     };
-    deleteUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description ユーザーの削除 */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserEntity"];
-                };
-            };
-        };
-    };
     updateUser: {
         parameters: {
             query?: never;
@@ -297,6 +307,28 @@ export interface operations {
         };
         responses: {
             /** @description ユーザーの更新 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserEntity"];
+                };
+            };
+        };
+    };
+    deleteUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description ユーザーの削除 */
             200: {
                 headers: {
                     [name: string]: unknown;

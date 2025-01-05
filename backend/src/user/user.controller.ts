@@ -35,7 +35,7 @@ export class UserController {
     return this.userService.users()
   }
 
-  @Post()
+  @Post('create')
   @ApiOperation({ summary: 'ユーザーの新規作成', operationId: 'createUser' })
   @ApiCreatedResponse({
     type: UserEntity,
@@ -45,7 +45,7 @@ export class UserController {
     return this.userService.createUser(data)
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   @ApiOperation({ summary: 'ユーザーの更新', operationId: 'updateUser' })
   @ApiOkResponse({
     type: UserEntity,
@@ -55,7 +55,7 @@ export class UserController {
     return this.userService.updateUser({ where: { id: Number(id) }, data })
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   @ApiOperation({ summary: 'ユーザーの削除', operationId: 'deleteUser' })
   @ApiOkResponse({
     type: UserEntity,

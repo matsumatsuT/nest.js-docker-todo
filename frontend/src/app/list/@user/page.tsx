@@ -5,12 +5,12 @@ import { CreateUser, FormValues } from "./CreateUser";
 
 const User = () => {
   const { data, refetch } = $api.useQuery("get", "/users");
-  const { mutate } = $api.useMutation("delete", "/users/{id}", {
+  const { mutate } = $api.useMutation("delete", "/users/delete/{id}", {
     onSuccess: () => {
       refetch();
     },
   });
-  const { mutate: createUser } = $api.useMutation("post", "/users", {
+  const { mutate: createUser } = $api.useMutation("post", "/users/create", {
     onSuccess: () => {
       refetch();
     },

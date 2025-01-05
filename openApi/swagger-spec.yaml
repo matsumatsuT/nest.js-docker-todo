@@ -71,6 +71,7 @@ paths:
                   $ref: '#/components/schemas/UserEntity'
       tags: &ref_1
         - users
+  /users/create:
     post:
       operationId: createUser
       parameters: []
@@ -89,7 +90,7 @@ paths:
                 $ref: '#/components/schemas/UserEntity'
       summary: ユーザーの新規作成
       tags: *ref_1
-  /users/{id}:
+  /users/update/{id}:
     patch:
       operationId: updateUser
       parameters:
@@ -113,6 +114,7 @@ paths:
                 $ref: '#/components/schemas/UserEntity'
       summary: ユーザーの更新
       tags: *ref_1
+  /users/delete/{id}:
     delete:
       operationId: deleteUser
       parameters:
