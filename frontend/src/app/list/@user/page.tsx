@@ -1,7 +1,7 @@
 "use client";
 
 import { useFetchClient } from "@/hooks/useFetchClient";
-import { CreateUser } from "./CreateUser";
+import { CreateUser, FormValues } from "./CreateUser";
 
 const User = () => {
   const $api = useFetchClient();
@@ -12,9 +12,18 @@ const User = () => {
       refetch();
     },
   });
+  const { mutate: createUser } = $api.useMutation("post", "/user", {
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
   const onDelete = (id: number) => {
     mutate({ params: { path: { id: id.toString() } } });
+  };
+
+  const onCreate = (data: FormValues) => {
+    createUser({ body: data });
   };
 
   if (!data) return null;
@@ -25,6 +34,7 @@ const User = () => {
       {data.map((user) => (
         <div key={user.id} style={{ display: "flex", gap: "10px" }}>
           <div>{user.id}</div>
+          <div>{user.name}</div>
           <div>{user.email}</div>
           <button onClick={() => onDelete(user.id)}>削除</button>
         </div>
@@ -32,7 +42,7 @@ const User = () => {
 
       <div>
         <p style={{ fontSize: "14px", fontWeight: "bold" }}>新規作成</p>
-        <CreateUser />
+        <CreateUser onSubmit={onCreate} />
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
+import { components } from "@/api/schema";
 import { useForm } from "react-hook-form";
 
-type FormValues = {
-  name: string;
-  email: string;
-  password: string;
+export type FormValues = components["schemas"]["CreateUserDto"];
+
+type Props = {
+  onSubmit: (data: FormValues) => void;
 };
 
-export const CreateUser = () => {
+export const CreateUser = ({ onSubmit }: Props) => {
   const { register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       name: "",
@@ -14,10 +15,6 @@ export const CreateUser = () => {
       password: "",
     },
   });
-
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-  };
 
   return (
     <form
