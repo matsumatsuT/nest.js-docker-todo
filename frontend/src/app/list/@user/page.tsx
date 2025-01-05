@@ -1,6 +1,7 @@
 "use client";
 
 import { useFetchClient } from "@/hooks/useFetchClient";
+import { CreateUser } from "./CreateUser";
 
 const User = () => {
   const $api = useFetchClient();
@@ -28,6 +29,11 @@ const User = () => {
           <button onClick={() => onDelete(user.id)}>削除</button>
         </div>
       ))}
+
+      <div>
+        <p style={{ fontSize: "14px", fontWeight: "bold" }}>新規作成</p>
+        <CreateUser />
+      </div>
     </div>
   );
 };
