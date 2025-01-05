@@ -13,6 +13,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true, //不要なDTOフィールドがある場合はエラーを返す
     }),
   )
+  app.enableCors()
 
   const config = new DocumentBuilder()
     .setTitle('Todo API')
