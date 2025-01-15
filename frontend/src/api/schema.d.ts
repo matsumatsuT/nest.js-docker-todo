@@ -123,11 +123,27 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        TodoEntity: {
+            id: number;
+            title: string;
+            description: string;
+            /** Format: date-time */
+            createdAt: string;
+            userId: number;
+            done: boolean;
+        };
         CreateTodoDto: {
             title: string;
             /** @example 説明はオプショナルです */
             description?: string;
             userId: number;
+        };
+        ResponseDto: {
+            /**
+             * @description メッセージ
+             * @example success
+             */
+            message: string;
         };
         UserEntity: {
             id: number;
@@ -180,11 +196,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
+            /** @description TODOの取得 */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["TodoEntity"][];
+                };
             };
         };
     };
@@ -201,11 +220,14 @@ export interface operations {
             };
         };
         responses: {
-            201: {
+            /** @description TODOの作成 */
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["TodoEntity"];
+                };
             };
         };
     };
@@ -220,11 +242,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
+            /** @description TODOの完了 */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ResponseDto"];
+                };
             };
         };
     };
@@ -239,11 +264,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
+            /** @description TODOの削除 */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["TodoEntity"];
+                };
             };
         };
     };
