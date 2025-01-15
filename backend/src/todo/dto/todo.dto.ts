@@ -38,3 +38,12 @@ export class DeleteTodoDto {
   @IsNumber()
   id: number
 }
+
+export class ResponseDto {
+  @ApiProperty({
+    description: 'メッセージ',
+    example: 'success',
+  })
+  @IsString()
+  message: string
+}
