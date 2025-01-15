@@ -1,16 +1,24 @@
 import { Injectable } from '@nestjs/common'
-import { Prisma } from '@prisma/client'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { CreateTodoDto, DeleteTodoDto, UpdateTodoDto } from './dto/todo.dto'
+import {
+  CreateTodoDto,
+  DeleteTodoDto,
+  GetTodoDto,
+  UpdateTodoDto,
+} from './dto/todo.dto'
 
 @Injectable()
 export class TodoService {
   constructor(private prisma: PrismaService) {}
 
-  async todos(data: Prisma.TodoWhereInput) {
+  async todosAll() {
+    return this.prisma.todo.findMany()
+  }
+
+  async todos(data: GetTodoDto) {
     return this.prisma.todo.findMany({
       where: {
-        userId: data.userId,
+        userId: Number(data.userId), // getメソッドなのでString型になっているのでNumber型に変換
       },
     })
   }

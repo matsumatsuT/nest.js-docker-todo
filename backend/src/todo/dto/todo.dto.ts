@@ -7,6 +7,12 @@ import {
   MinLength,
 } from 'class-validator'
 
+export class GetTodoDto {
+  @ApiProperty()
+  @IsNumber()
+  userId: number
+}
+
 export class CreateTodoDto {
   @ApiProperty()
   @IsString()

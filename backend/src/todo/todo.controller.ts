@@ -9,7 +9,6 @@ import {
   UseInterceptors,
 } from '@nestjs/common'
 import { TodoService } from './todo.service'
-import { Prisma } from '@prisma/client'
 import { CreateTodoDto } from './dto/todo.dto'
 import { ExcludePasswordInterceptor } from 'src/interceptor/transform.interceptor'
 import { ApiOkResponse } from '@nestjs/swagger'
@@ -27,8 +26,18 @@ export class TodoController {
     isArray: true,
     description: 'TODOの取得',
   })
-  async getTodos(@Body() data: Prisma.TodoWhereInput) {
-    return this.todoService.todos(data)
+  async getTodoAll() {
+    return this.todoService.todosAll()
+  }
+
+  @Get(':id')
+  @ApiOkResponse({
+    type: TodoEntity,
+    isArray: true,
+    description: 'TODOの取得(指定したidのみ)',
+  })
+  async getTodo(@Param('id') id: number) {
+    return this.todoService.todos({ userId: id })
   }
 
   @Post()

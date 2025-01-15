@@ -11,7 +11,7 @@ paths:
         - App
   /todo:
     get:
-      operationId: TodoController_getTodos
+      operationId: TodoController_getTodoAll
       parameters: []
       responses:
         '200':
@@ -42,6 +42,24 @@ paths:
                 $ref: '#/components/schemas/TodoEntity'
       tags: *ref_0
   /todo/{id}:
+    get:
+      operationId: TodoController_getTodo
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: TODOの取得(指定したidのみ)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoEntity'
+      tags: *ref_0
     put:
       operationId: TodoController_doneTodo
       parameters:
