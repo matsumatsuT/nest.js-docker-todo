@@ -27,7 +27,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["TodoController_getTodos"];
+        get: operations["TodoController_getTodoAll"];
         put?: never;
         post: operations["TodoController_createTodo"];
         delete?: never;
@@ -43,7 +43,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        get: operations["TodoController_getTodo"];
         put: operations["TodoController_doneTodo"];
         post?: never;
         delete: operations["TodoController_deleteTodo"];
@@ -187,7 +187,7 @@ export interface operations {
             };
         };
     };
-    TodoController_getTodos: {
+    TodoController_getTodoAll: {
         parameters: {
             query?: never;
             header?: never;
@@ -227,6 +227,28 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TodoEntity"];
+                };
+            };
+        };
+    };
+    TodoController_getTodo: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description TODOの取得(指定したidのみ) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TodoEntity"][];
                 };
             };
         };
