@@ -25,6 +25,16 @@ import { ExcludePasswordInterceptor } from 'src/interceptor/transform.intercepto
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Get('/:id')
+  @ApiOperation({ summary: 'ユーザーの取得', operationId: 'getUser' })
+  @ApiOkResponse({
+    type: UserEntity,
+    description: 'ユーザーの取得',
+  })
+  async getUser(@Param('id') id: string) {
+    return this.userService.user({ id: Number(id) })
+  }
+
   @Get()
   @ApiOkResponse({
     type: UserEntity,
