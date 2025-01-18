@@ -11,7 +11,9 @@ import {
 import { AuthService } from './auth.service'
 import { SignInDto } from './dto/auth.dto'
 import { AuthGuard } from './auth.guard'
+import { Public } from 'src/metaData'
 
+@Public()
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}

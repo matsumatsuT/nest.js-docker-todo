@@ -10,10 +10,21 @@ import { UserController } from './user/user.controller'
 import { PrismaService } from './prisma/prisma.service'
 import { AuthModule } from './auth/auth.module'
 import { UserModule } from './user/user.module'
+import { APP_GUARD } from '@nestjs/core'
+import { AuthGuard } from './auth/auth.guard'
 
 @Module({
   imports: [ConfigModule.forRoot(), TodoModule, UserModule, AuthModule],
   controllers: [AppController, TodoController, UserController],
-  providers: [AppService, TodoService, UserService, PrismaService],
+  providers: [
+    AppService,
+    TodoService,
+    UserService,
+    PrismaService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}
