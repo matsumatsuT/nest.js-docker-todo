@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common'
 import { UserService } from './user.service'
@@ -18,8 +19,10 @@ import {
 } from '@nestjs/swagger'
 import { UserEntity } from 'src/entities/user.entity'
 import { ExcludePasswordInterceptor } from 'src/interceptor/transform.interceptor'
+import { AuthGuard } from 'src/auth/auth.guard'
 
 @Controller('users')
+@UseGuards(AuthGuard)
 @UseInterceptors(ExcludePasswordInterceptor)
 @ApiTags('users')
 export class UserController {
