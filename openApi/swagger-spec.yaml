@@ -92,6 +92,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/TodoEntity'
       tags: *ref_0
+  /users/{id}:
+    get:
+      operationId: getUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ユーザーの取得
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEntity'
+      summary: ユーザーの取得
+      tags: &ref_1
+        - users
   /users:
     get:
       operationId: UserController_getUsers
@@ -105,8 +124,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserEntity'
-      tags: &ref_1
-        - users
+      tags: *ref_1
   /users/create:
     post:
       operationId: createUser
@@ -168,6 +186,32 @@ paths:
                 $ref: '#/components/schemas/UserEntity'
       summary: ユーザーの削除
       tags: *ref_1
+  /auth/login:
+    post:
+      operationId: AuthController_signIn
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInDto'
+      responses:
+        '200':
+          description: 認証機能
+          content:
+            application/json:
+              example: access_token
+      tags: &ref_2
+        - Auth
+  /auth/profile:
+    get:
+      operationId: AuthController_getProfile
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: *ref_2
 info:
   title: Todo API
   description: Todo API Documentation
@@ -259,3 +303,6 @@ components:
           type: string
         email:
           type: string
+    SignInDto:
+      type: object
+      properties: {}
