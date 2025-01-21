@@ -11,6 +11,11 @@ export class SignInDto {
   password: string
 }
 
+export class SignInResponseDto {
+  @ApiProperty()
+  access_token: string
+}
+
 export class JwtPayload {
   sub: number
   email: string

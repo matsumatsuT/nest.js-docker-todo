@@ -201,7 +201,8 @@ paths:
           description: 認証機能
           content:
             application/json:
-              example: access_token
+              schema:
+                $ref: '#/components/schemas/SignInResponseDto'
       tags: &ref_2
         - Auth
   /auth/profile:
@@ -313,3 +314,10 @@ components:
       required:
         - email
         - password
+    SignInResponseDto:
+      type: object
+      properties:
+        access_token:
+          type: string
+      required:
+        - access_token

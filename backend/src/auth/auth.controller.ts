@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { AuthService } from './auth.service'
-import { JwtPayload, SignInDto } from './dto/auth.dto'
+import { JwtPayload, SignInDto, SignInResponseDto } from './dto/auth.dto'
 import { AuthGuard } from './auth.guard'
 import { Public } from 'src/metaData'
 import { ApiOkResponse } from '@nestjs/swagger'
@@ -23,7 +23,7 @@ export class AuthController {
   @Post('login')
   @ApiOkResponse({
     description: '認証機能',
-    example: 'access_token',
+    type: SignInResponseDto,
   })
   signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto)
