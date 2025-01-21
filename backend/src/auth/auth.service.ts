@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { UserService } from 'src/user/user.service'
+import { SignInDto } from './dto/auth.dto'
 
 @Injectable()
 export class AuthService {
@@ -9,10 +10,10 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(email: string, pass: string) {
-    const user = await this.userService.user({ email: email })
+  async signIn(data: SignInDto) {
+    const user = await this.userService.user({ email: data.email })
 
-    if (user.password !== pass) {
+    if (user.password !== data.password) {
       throw new UnauthorizedException('Invalid email or password')
     }
 

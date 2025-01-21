@@ -26,7 +26,7 @@ export class AuthController {
     example: 'access_token',
   })
   signIn(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto.email, signInDto.password)
+    return this.authService.signIn(signInDto)
   }
 
   @UseGuards(AuthGuard)

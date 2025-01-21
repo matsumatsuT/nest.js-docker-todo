@@ -305,4 +305,11 @@ components:
           type: string
     SignInDto:
       type: object
-      properties: {}
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
