@@ -210,7 +210,10 @@ export interface components {
             name?: string;
             email?: string;
         };
-        SignInDto: Record<string, never>;
+        SignInDto: {
+            email: string;
+            password: string;
+        };
     };
     responses: never;
     parameters: never;
