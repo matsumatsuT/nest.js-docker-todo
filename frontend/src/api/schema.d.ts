@@ -214,6 +214,9 @@ export interface components {
             email: string;
             password: string;
         };
+        SignInResponseDto: {
+            access_token: string;
+        };
     };
     responses: never;
     parameters: never;
@@ -483,7 +486,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["SignInResponseDto"];
                 };
             };
         };
