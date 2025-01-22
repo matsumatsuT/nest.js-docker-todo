@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.62.11",
+    "@types/js-cookie": "^3.0.6",
+    "js-cookie": "^3.0.5",
     "next": "15.0.4",
     "openapi-fetch": "^0.13.3",
     "openapi-react-query": "^0.2.8",
