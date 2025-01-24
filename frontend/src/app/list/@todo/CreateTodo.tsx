@@ -7,10 +7,17 @@ type Props = {
   onSubmit: (data: TodoInputValue) => void;
 };
 export const CreateTodo = ({ onSubmit }: Props) => {
-  const { register, handleSubmit } = useForm<TodoInputValue>();
+  const { register, handleSubmit, reset } = useForm<TodoInputValue>();
+
+  // submit関数
+  const onSubmitForm = (data: TodoInputValue) => {
+    onSubmit(data);
+    reset();
+  };
+
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmitForm)}
       style={{ display: "grid", gap: "4px" }}
     >
       <div style={{ display: "flex", gap: "4px" }}>
