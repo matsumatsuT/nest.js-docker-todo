@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const CreateUser = ({ onSubmit }: Props) => {
-  const { register, handleSubmit } = useForm<FormValues>({
+  const { register, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
       name: "",
       email: "",
@@ -16,9 +16,14 @@ export const CreateUser = ({ onSubmit }: Props) => {
     },
   });
 
+  const onSubmitForm = (data: FormValues) => {
+    onSubmit(data);
+    reset();
+  };
+
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmitForm)}
       style={{ display: "grid", gap: "4px" }}
     >
       <div style={{ display: "flex", gap: "4px" }}>
