@@ -36,8 +36,8 @@ export class TodoController {
     isArray: true,
     description: 'TODOの取得(指定したidのみ)',
   })
-  async getTodo(@Param('id') id: number) {
-    return this.todoService.todos({ userId: id })
+  async getTodo(@Param('id') id: string) {
+    return this.todoService.todos({ userId: Number(id) })
   }
 
   @Post()
