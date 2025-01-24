@@ -7,6 +7,14 @@ import { CreateUserDto } from './dto/user.dto'
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
+  async myProfile(userId: number) {
+    return this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    })
+  }
+
   async user(userWhereUniqueInput: Prisma.UserWhereUniqueInput) {
     return this.prisma.user.findUnique({
       where: userWhereUniqueInput,

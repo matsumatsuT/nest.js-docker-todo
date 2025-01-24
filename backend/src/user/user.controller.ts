@@ -6,6 +6,8 @@ import {
   Param,
   Patch,
   Post,
+  Request,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common'
 import { UserService } from './user.service'
@@ -18,12 +20,24 @@ import {
 } from '@nestjs/swagger'
 import { UserEntity } from 'src/entities/user.entity'
 import { ExcludePasswordInterceptor } from 'src/interceptor/transform.interceptor'
+import { AuthGuard } from 'src/auth/auth.guard'
+import { JwtPayload } from 'src/auth/dto/auth.dto'
 
 @Controller('users')
 @UseInterceptors(ExcludePasswordInterceptor)
 @ApiTags('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @UseGuards(AuthGuard)
+  @Get('me')
+  @ApiOkResponse({
+    type: UserEntity,
+    description: '自身の情報を取得する',
+  })
+  async getProfile(@Request() req: { user: JwtPayload }) {
+    return this.userService.myProfile(req.user.sub)
+  }
 
   @Get('/:id')
   @ApiOperation({ summary: 'ユーザーの取得', operationId: 'getUser' })

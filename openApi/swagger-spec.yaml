@@ -92,6 +92,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/TodoEntity'
       tags: *ref_0
+  /users/me:
+    get:
+      operationId: UserController_getProfile
+      parameters: []
+      responses:
+        '200':
+          description: 自身の情報を取得する
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEntity'
+      tags: &ref_1
+        - users
   /users/{id}:
     get:
       operationId: getUser
@@ -109,8 +122,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserEntity'
       summary: ユーザーの取得
-      tags: &ref_1
-        - users
+      tags: *ref_1
   /users:
     get:
       operationId: UserController_getUsers
